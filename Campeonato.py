@@ -37,6 +37,7 @@ def menu(opc_usuario=0):
                     arqCadastro.writelines(str(cliente))
                     arqCadastro.write('\n')
                     arqCadastro.close()
+                cadastro() 
             elif opc_usuario == 2:
                 break
             elif opc_usuario == 3:
@@ -47,6 +48,3 @@ def menu(opc_usuario=0):
                 break
     print('Obrigado pela visita, volte sempre!')
 menu()
-
-
-              
