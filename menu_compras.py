@@ -19,7 +19,7 @@ def adicionar():  # Menu para adicionar itens ao carrinho.
         if nao_deseja_continuar('Deseja adicionar mais um produto? (Sim/Não)', 'Opção inválida. Digite sim ou não: '):
             break
     separar()
-    menu()
+    menu_compras()
 
 
 def alterar():  # Altera a quantidade de um produto.
@@ -39,7 +39,17 @@ def alterar():  # Altera a quantidade de um produto.
                                 'Opção inválida. Digite sim ou não: '):
             break
     separar()
-    menu()
+    menu_compras()
+
+
+def arquivo_para_lista_clientes():
+    global clientes
+    lista_clientes = []
+    with open('clienteDados.txt', 'r', encoding='UTF-8') as arquivo:
+        for linha in arquivo:
+            cliente = eval(linha)
+            lista_clientes.append(cliente)
+    clientes = lista_clientes
 
 
 def atualizar_estoque():  # Atualiza o arquivo com o estoque novo.
@@ -72,11 +82,12 @@ def checar_codigo(codigo):  # Retorna True se o código é válido e False se n�
 
 
 def emitir_nota_fiscal():  # Emite a nota fiscal de cada cliente.
-    with open('nota_fiscal.txt', 'w', encoding='UTF-8') as arq:
+    nota = f"nota_fiscal_{cliente_atual['CPF']}.txt"
+    with open(nota, 'w', encoding='UTF-8') as arq:
         total = 0
         arq.write('Supermercado Ada Lovelace.'.center(50) + '\n')
         arq.write('-=' * 25 + '\n')
-        arq.write('CPF do cliente: ' + cpf + '\n')
+        arq.write('CPF do cliente: ' + cliente_atual['CPF'] + '\n')
         arq.write('-=' * 25 + '\n')
         arq.write('Quantidade'.ljust(18) + 'Produto'.ljust(20) + 'Preço total' + '\n')
         arq.write('-=' * 25 + '\n')
@@ -101,7 +112,7 @@ def filtro():  # Ativa ou desativa o filtro por preço.
         print('A partir de agora os produtos SERÃO exibidos por ordem de preço!')
         filtrar = True
         produtos = ordenar_produtos_por_preco()
-    menu()
+    menu_compras()
 
 
 def finalizar():  # Finaliza as compras.
@@ -110,7 +121,7 @@ def finalizar():  # Finaliza as compras.
     atualizar_estoque()
 
 
-def menu():
+def menu_compras():
     print('O que você deseja fazer?\n'
           '[0] Adicionar um produto ao seu carrinho.\n'
           '[1] Remover um produto do seu carrinho.\n'
@@ -125,7 +136,7 @@ def menu():
         separar()
         print('Não há nenhum produto no seu carrinho ainda.')
         separar()
-        menu()
+        menu_compras()
     else:
         separar()
         if opcao == '0':
@@ -142,6 +153,25 @@ def menu():
             print('Tchau, até mais!')
         print('Obrigado por usar nosso sistema!')
         exit()
+
+
+def menu_login():
+    global cliente_atual
+    arquivo_para_lista_clientes()
+    print('Para fazer login, por favor, digite as suas informações abaixo:')
+    while True:
+        print('Login(e-mail ou cpf):')
+        print('--> ', end='')
+        login = input('')
+        print('Senha (cuidado com as letras maiúsculas/minúsculas):')
+        print('--> ', end='')
+        senha = input('')
+        if valida_informacoes(login, senha):
+            menu_compras()
+            break
+        print()
+        print('Login e/ou senha incorretos.\n'
+              'Cheque suas informações e tente novamente:')
 
 
 def mostrar_produtos_disponiveis(lista_produtos, tamanho_dos_atributos=80):  # Exibe a lista de produtos.
@@ -205,7 +235,7 @@ def remover():  # Remove produtos do carrinho.
             if nao_deseja_continuar('Deseja remover mais um produto(Sim/Não)? ', 'Opção inválida. Digite sim ou não: '):
                 break
     separar()
-    menu()
+    menu_compras()
 
 
 def retirar_do_estoque():  # Retira o número de ítens comprados da lista de produtos.
@@ -257,8 +287,20 @@ def transformar_produtos_em_lista():  # Converte o arquivo em uma lista de lista
     return estoque
 
 
-cpf = '123456789'
+def valida_informacoes(login, senha):
+    global cliente_atual
+    for cliente in clientes:
+        if login == cliente['Email'] or login == cliente['CPF']:
+            if senha == cliente['Senha']:
+                cliente_atual = cliente
+                return True
+            else:
+                return False
+    return False
+
+
+cliente_atual = {}
 filtrar = False
 carrinho = []
 produtos = transformar_produtos_em_lista()
-menu()
+clientes = []
