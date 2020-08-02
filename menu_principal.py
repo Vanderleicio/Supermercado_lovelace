@@ -4,35 +4,37 @@ from menu_compras import menu_login
 
 
 def linha(titulos):
-    print('-' * 40)
+    print('-=' * 25)
     print(titulos)
-    print('-' * 40)
+    print('-=' * 25)
 
 
 # comando principal
 
 
-def menu(opc_usuario=0):
-    while opc_usuario != 4:
-        print(f'{"SUPERMERCADO ADA LOVELACE":^45}')
-        linha('[1] Fazer o cadastro de clientes\n[2] Fazer login de clientes\n[3] Fazer login de funcionário\n[4] Sair')
-        while True:
-            opc_usuario = int(input('Digite sua opção: '))
-            while opc_usuario not in (1, 2, 3, 4):
-                print('Opção incorreta, digite novamente.')
-                opc_usuario = int(input('Digite sua opção: '))
-            if opc_usuario == 1:
-                cadastro()
-                break
-            elif opc_usuario == 2:
-                menu_login()
-                break
-            elif opc_usuario == 3:
-                break
-            else:
-                print('Saindo...')
-                sleep(1)
-                break
+def menu(opc_usuario='0'):
+    while opc_usuario != '4':
+        print(f'{"SUPERMERCADO LOVELACE":^50}')
+        linha(f'\n{"Seja bem-vindo! Escolha a sua opção:":^50}\n\n'
+          '[1] Fazer cadastro de cliente.\n'
+          '[2] Fazer login para cliente.\n'
+          '[3] Fazer login para funcionário.\n'
+          '[4] Finalizar programa.\n')
+        sleep(1)
+        opc_usuario = input('Digite sua opção: ')
+        while opc_usuario not in ('1234'):
+            opc_usuario = input('Opção incorreta, digite novamente: ')
+        if opc_usuario == '1':
+            cadastro()
+            break
+        elif opc_usuario == '2':
+            menu_login()
+            break
+        elif opc_usuario == '3':
+            break
+        else:
+            print('Saindo do programa...')
+            sleep(1)
     print('Obrigado pela visita, volte sempre!')
 
 
