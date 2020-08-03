@@ -81,6 +81,15 @@ def checar_codigo(codigo):  # Retorna True se o código é válido e False se n�
         return False
 
 
+def delivery():
+    resposta = input('Você deseja receber suas compras em sua casa?').strip()[0].upper()
+    while resposta not in 'SN':
+        resposta = input('Resposta inválida. Por favor, digite "sim" ou "não": ').strip()[0].upper()
+    if resposta == 'S':
+        return True
+    return False
+
+
 def emitir_nota_fiscal():  # Emite a nota fiscal de cada cliente.
     nota = f"nota_fiscal_{cliente_atual['CPF']}.txt"
     with open(nota, 'w', encoding='UTF-8') as arq:
@@ -99,6 +108,10 @@ def emitir_nota_fiscal():  # Emite a nota fiscal de cada cliente.
                       ('R$ ' + '{0:.2f}'.format(preco)).ljust(18) + '\n')
         arq.write('-=' * 25 + '\n')
         arq.write(f'TOTAL DA CONTA: R${total:.2f}' + '\n')
+        if delivery():
+            arq.write('P/ ENTREGAR')
+        else:
+            arq.write('P/ BUSCAR')
     print('O ARQUIVO DA NOTA FISCAL JÁ FOI GERADO')
 
 
