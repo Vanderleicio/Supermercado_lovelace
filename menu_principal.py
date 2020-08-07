@@ -1,8 +1,9 @@
+#Importa as funções utilizadas no menu
+
 from time import sleep
 from cadastro_do_usuario import cadastro
 from menu_compras import menu_login
 from atualizar_estoque import menu_login_funcionario
-
 
 def linha(titulos):
     print('-=' * 25)
@@ -11,7 +12,6 @@ def linha(titulos):
 
 
 # comando principal
-
 
 def menu(opc_usuario='0'):
     while opc_usuario != '4':

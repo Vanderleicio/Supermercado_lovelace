@@ -22,7 +22,7 @@ def adicionar():  # Menu para adicionar itens ao carrinho.
     menu_compras()
 
 
-def alterar():  # Altera a quantidade de um produto.
+def alterar():  #Altera a quantidade de um produto.
     while True:
         print('Esses são os produtos no seu carrinho até o momento:')
         mostrar_produtos_disponiveis(carrinho)
@@ -32,7 +32,7 @@ def alterar():  # Altera a quantidade de um produto.
             posicao = int(input(f'Posição inválida. Digite uma posição entre 1 e {len(carrinho)}'))
         nova_quantidade = int(input('Digite a nova quantidade: '))
         while nova_quantidade <= 0 \
-                or nova_quantidade > carrinho[posicao - 1]['estoque']:  # Verifica a validade da quantidade escolhida.
+                or nova_quantidade > carrinho[posicao - 1]['estoque']:  #Verifica a validade da quantidade escolhida.
             nova_quantidade = int(input('Quantidade não disponível.Por favor, tente novamente: '))
         carrinho[posicao - 1]['quantidade'] = nova_quantidade
         if nao_deseja_continuar('Deseja alterar a quantidade de outro produto? (Sim/Não) ',
@@ -73,7 +73,7 @@ def atualizar_estoque():  # Atualiza o arquivo com o estoque novo.
                     arquivo.write('\n')
 
 
-def checar_codigo(codigo):  # Retorna True se o código é válido e False se não for.
+def checar_codigo(codigo):  #Retorna True se o código é válido e False se não for.
     for produto in produtos:
         if produto['código'] == codigo:
             return True
@@ -90,7 +90,7 @@ def delivery():
     return False
 
 
-def emitir_nota_fiscal():  # Emite a nota fiscal de cada cliente.
+def emitir_nota_fiscal():  #Emite a nota fiscal de cada cliente.
     nota = f"nota_fiscal_{cliente_atual['CPF']}.txt"
     with open(nota, 'w', encoding='UTF-8') as arq:
         total = 0
@@ -115,7 +115,7 @@ def emitir_nota_fiscal():  # Emite a nota fiscal de cada cliente.
     print('O ARQUIVO DA NOTA FISCAL JÁ FOI GERADO')
 
 
-def filtro():  # Ativa ou desativa o filtro por preço.
+def filtro():  #Ativa ou desativa o filtro por preço.
     global filtrar, produtos
     if filtrar:
         print('A partir de agora os produtos NÃO serão mais exibidos por ordem de preço!')

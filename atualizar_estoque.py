@@ -1,10 +1,12 @@
+#Abre o arquivo .txt com os produtos em estoque e salva em uma lista
 with open('produtosAda.txt', 'r+', encoding='UTF-8') as arquivo:
     lista = []
     for linha in arquivo:
         linhas = linha.rstrip().split(';')
         lista.append(linhas)
 
-
+#Altera a quantidade dos produtos em estoque.
+# Se o código do produto for igual ao código digitado é possível alterar a quantidade em estoque.
 def alterar_estoque():
     n = int(input('[1] Atualizar Estoque \n[2] Sair\n--> '))
     while n:
@@ -27,7 +29,7 @@ def alterar_estoque():
             print('Escolha uma opção válida')
             n = int(input('[1] Atualizar Estoque \n[2] Sair\n--> '))
 
-
+#Menu de login para funcionários através do Código de Funcionário e Senha.
 def menu_login_funcionario():
     print('Para fazer login, por favor, digite as suas informações abaixo:')
     while True:
@@ -37,14 +39,15 @@ def menu_login_funcionario():
         print('Senha (cuidado com as letras maiúsculas/minúsculas):')
         print('--> ', end='')
         senha = input('')
-        if valida_informacoes(login, senha):
+        if valida_informacoes(login, senha): #Valida o login e libera acesso à função de alterar estoque.
             alterar_estoque()
             break
         print()
         print('Login e/ou senha incorretos.\n'
               'Cheque suas informações e tente novamente:')
 
-
+#Verifica se as informações de Código de Funcionário e Senha estão no cadastro de funcionários.
+#Retorna "True" ou "False" para funcionários cadastrados ou não cadastrados.
 def valida_informacoes(login, senha):
     for funcionario in funcionarios:
         if login == funcionario['codigoFuncionario']:
@@ -54,7 +57,8 @@ def valida_informacoes(login, senha):
                 return False
     return False
 
-
+#Lê os dados de cadastro de funcionários.
+#Armazena os dados de maneira ordenada em uma lista.
 def arquivo_para_lista():
     lista_funcionario = []
     with open('funcionariosAda.txt', 'r', encoding='UTF-8') as arq:
@@ -73,8 +77,8 @@ def arquivo_para_lista():
             lista_funcionario.append(funcionario)
     return lista_funcionario
 
-
-def atualizar_estoque():  # Atualiza o arquivo com o estoque novo.
+#Atualiza ("salva") o arquivo com as modificações no estoque.
+def atualizar_estoque():
     with open('produtosAda.txt', 'w', encoding='UTF-8') as arquivo2:
         for produto in lista:
             for i in range(len(produto)):
