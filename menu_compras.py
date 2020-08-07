@@ -91,7 +91,7 @@ def delivery():
 
 
 def emitir_nota_fiscal():  #Emite a nota fiscal de cada cliente.
-    nota = f"nota_fiscal_{cliente_atual['CPF']}.txt"
+    nota = f"nota_fiscal_{cliente_atual['CPF']}.txt" #Cada nota fiscal tem o CPF do cliente no nome
     with open(nota, 'w', encoding='UTF-8') as arq:
         total = 0
         arq.write('Supermercado Ada Lovelace.'.center(50) + '\n')
