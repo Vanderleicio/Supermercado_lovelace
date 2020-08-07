@@ -24,7 +24,7 @@ def alterar_estoque():
 
         if n == 2:
             print('Alterações Salvas.')
-            alterar_estoque()
+            atualizar_estoque()
             break
 
         if n != 1 and n != 2:
