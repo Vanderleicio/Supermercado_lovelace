@@ -1,0 +1,18 @@
+
+def cadastro():
+    cliente = {}
+    chaves = ["Nome","Email","Senha","Telefone","CPF"]
+    def adicionar():
+        for i in chaves:
+            cliente[i] = input(f"Digite {i}: ")
+
+
+    adicionar()
+
+
+    with open('clienteDados.txt','a',encoding = 'UTF-8') as arqCadastro:
+        arqCadastro.writelines(str(cliente))
+        arqCadastro.write('\n')
+
+
+cadastro()
