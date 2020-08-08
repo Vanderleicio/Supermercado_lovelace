@@ -17,10 +17,10 @@ def alterar_estoque():
             if produto[0] == codigo:
                 produto[3] = input('Digite a quantidade de produtos atualizada: ')
                 break
-            else:
-                print('Código inválido. Tente novamente.')
-            print()
-            n = int(input('[1] Atualizar Estoque \n[2] Sair\n--> '))
+        else:
+            print('Código inválido. Tente novamente.')
+        print()
+        n = int(input('[1] Atualizar Estoque \n[2] Sair\n--> '))
 
         if n == 2:
             print('Alterações Salvas.')
